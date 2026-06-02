@@ -1,8 +1,8 @@
 // 5Q診断 - 高度化された設問データ
 // 社会的望ましさバイアスを排除し、複雑なトレードオフ設計を採用
 
-const questions = {
-  IQ: [
+const QUESTIONS = {
+  iq: [
     {
       id: "iq_001",
       type: "judgment",
@@ -10,19 +10,23 @@ const questions = {
       answers: [
         {
           text: "矛盾を指摘して、修正を求める前に、提案者の意図を詳しく聞く",
-          level: 3
+          level: 3,
+          category: "judgment"
         },
         {
           text: "矛盾点をリストアップし、メールで具体的に質問する",
-          level: 4
+          level: 4,
+          category: "judgment"
         },
         {
           text: "魅力的な部分が大きいので、矛盾は運用で対応できると判断する",
-          level: 1
+          level: 1,
+          category: "judgment"
         },
         {
           text: "矛盾の背景にある前提条件の変化を、業界トレンドから推測する",
-          level: 3
+          level: 3,
+          category: "judgment"
         }
       ]
     },
@@ -33,19 +37,23 @@ const questions = {
       answers: [
         {
           text: "分析方法に誤りがないか、まず手法を検証する",
-          level: 4
+          level: 4,
+          category: "pattern"
         },
         {
           text: "結果が正しいと仮定して、新しい仮説を立てる",
-          level: 3
+          level: 3,
+          category: "pattern"
         },
         {
           text: "データ収集の時期や対象に偏りがなかったか確認する",
-          level: 3
+          level: 3,
+          category: "pattern"
         },
         {
           text: "予想が外れたことより、今後の対応方法を考える",
-          level: 1
+          level: 1,
+          category: "pattern"
         }
       ]
     },
@@ -56,19 +64,23 @@ const questions = {
       answers: [
         {
           text: "共通パターンを優先し、例外は後で分析する",
-          level: 2
+          level: 2,
+          category: "abstraction"
         },
         {
-          text: "例外を含めた全体像を理解してから、パターンを定義する",
-          level: 4
+          text: "共通パターンと例外の両方を説明する理論を構築する",
+          level: 4,
+          category: "abstraction"
         },
         {
-          text: "例外ケースの理由を深掘りして、より正確なパターンを作る",
-          level: 4
+          text: "例外を無視して、共通パターンのみを報告する",
+          level: 1,
+          category: "abstraction"
         },
         {
-          text: "共通パターンと例外の両方を並行して対策する",
-          level: 3
+          text: "例外ケースが重要な示唆を含んでいないか、詳しく調べる",
+          level: 3,
+          category: "abstraction"
         }
       ]
     },
@@ -79,19 +91,23 @@ const questions = {
       answers: [
         {
           text: "シンプルな解釈を採用し、実装を優先する",
-          level: 3
+          level: 3,
+          category: "inference"
         },
         {
-          text: "複雑な解釈が正しいと考え、詳細に分析する",
-          level: 2
+          text: "複雑な解釈の方が正確だと考え、詳細に検討する",
+          level: 2,
+          category: "inference"
         },
         {
-          text: "両者の違いが実務的に影響するかを確認してから選ぶ",
-          level: 4
+          text: "両者の前提条件の違いを明確にして、使い分ける",
+          level: 4,
+          category: "inference"
         },
         {
-          text: "シンプルさと正確さのバランスを取った解釈を作る",
-          level: 3
+          text: "専門家の意見を求めて、判断を委ねる",
+          level: 1,
+          category: "inference"
         }
       ]
     },
@@ -102,19 +118,23 @@ const questions = {
       answers: [
         {
           text: "実装可能性を優先し、Bで始めて改善する",
-          level: 3
+          level: 3,
+          category: "processing"
         },
         {
-          text: "論理的厳密性を優先し、Aの実装方法を工夫する",
-          level: 2
+          text: "論理的正確性を優先し、Aの実装方法を工夫する",
+          level: 2,
+          category: "processing"
         },
         {
-          text: "Bの仮定が妥当かを検証してから、どちらかを選ぶ",
-          level: 4
+          text: "AとBの仮定を比較し、どちらのリスクが大きいか判断する",
+          level: 4,
+          category: "processing"
         },
         {
-          text: "AとBの要素を組み合わせた第三案を作る",
-          level: 3
+          text: "どちらでもいいので、とにかく早く決めて進める",
+          level: 1,
+          category: "processing"
         }
       ]
     },
@@ -125,19 +145,23 @@ const questions = {
       answers: [
         {
           text: "自分の経験が特殊ケースか、理論が不完全かを区別する",
-          level: 4
+          level: 4,
+          category: "judgment"
         },
         {
-          text: "一般的な理論を信頼し、自分の経験を再検討する",
-          level: 2
+          text: "理論が正しいと仮定し、自分の経験の解釈を見直す",
+          level: 2,
+          category: "judgment"
         },
         {
-          text: "自分の経験を優先し、理論を疑う",
-          level: 1
+          text: "自分の経験を信じ、理論に疑問を持つ",
+          level: 2,
+          category: "judgment"
         },
         {
-          text: "両者の違いから、新しい視点を得られないか考える",
-          level: 3
+          text: "両者の違いについて、他の人の意見を聞く",
+          level: 3,
+          category: "judgment"
         }
       ]
     },
@@ -148,19 +172,23 @@ const questions = {
       answers: [
         {
           text: "必要な情報を明確にして、判断を遅延させる",
-          level: 3
+          level: 3,
+          category: "pattern"
         },
         {
-          text: "不足情報を補う仮定を明示した上で、判断を提示する",
-          level: 4
+          text: "不足している情報を推測して、判断する",
+          level: 2,
+          category: "pattern"
         },
         {
-          text: "現在の情報で最善の判断を示す",
-          level: 2
+          text: "現在の情報で最善の判断をし、後で修正する準備をする",
+          level: 3,
+          category: "pattern"
         },
         {
-          text: "判断を避け、さらなる情報収集を提案する",
-          level: 1
+          text: "判断に必要な情報の優先順位を決めて、段階的に集める",
+          level: 4,
+          category: "pattern"
         }
       ]
     },
@@ -171,19 +199,23 @@ const questions = {
       answers: [
         {
           text: "細部を詰めることが全体の精度を高めると考える",
-          level: 1
+          level: 1,
+          category: "abstraction"
         },
         {
-          text: "全体像を確認し、細部の優先順位を整理する",
-          level: 4
+          text: "全体像の確認を優先し、細部は後回しにする",
+          level: 3,
+          category: "abstraction"
         },
         {
-          text: "細部と全体の関係性を明確にしてから進める",
-          level: 4
+          text: "細部と全体のどちらが現在の課題解決に必要かを判断する",
+          level: 4,
+          category: "abstraction"
         },
         {
-          text: "細部の議論を続けつつ、時々全体を確認する",
-          level: 2
+          text: "議論を一度中断して、全体像を図解する",
+          level: 3,
+          category: "abstraction"
         }
       ]
     },
@@ -194,19 +226,23 @@ const questions = {
       answers: [
         {
           text: "自分の分析を信頼し、結果を提示する",
-          level: 2
+          level: 2,
+          category: "inference"
         },
         {
-          text: "多くの人の直感が正しい可能性を考慮する",
-          level: 3
+          text: "多くの人の直感の方が正しいと考え、分析を見直す",
+          level: 1,
+          category: "inference"
         },
         {
-          text: "分析と直感の両者が何を見ているか、理解してから判断する",
-          level: 4
+          text: "分析と直感の乖離の理由を調べ、どちらが正しいか検証する",
+          level: 4,
+          category: "inference"
         },
         {
-          text: "直感を無視して、分析結果を優先する",
-          level: 1
+          text: "分析結果を提示しつつ、直感との違いについても説明する",
+          level: 3,
+          category: "inference"
         }
       ]
     },
@@ -217,25 +253,28 @@ const questions = {
       answers: [
         {
           text: "各専門家の前提条件や視点の違いを理解する",
-          level: 4
+          level: 4,
+          category: "judgment"
         },
         {
-          text: "最も信頼できる専門家の意見に従う",
-          level: 2
+          text: "最も権威のある専門家の意見に従う",
+          level: 1,
+          category: "judgment"
         },
         {
-          text: "対立の理由を分析し、統合的な見方を作る",
-          level: 4
+          text: "各意見の根拠を比較し、最も論理的なものを選ぶ",
+          level: 3,
+          category: "judgment"
         },
         {
-          text: "意見の多数派を採用する",
-          level: 1
+          text: "対立している専門家たちに、さらに議論させる",
+          level: 2,
+          category: "judgment"
         }
       ]
     }
   ],
-
-  EQ: [
+  eq: [
     {
       id: "eq_001",
       type: "situation",
@@ -243,938 +282,1084 @@ const questions = {
       answers: [
         {
           text: "励ましの言葉をかけ、前向きになるよう促す",
-          level: 2
+          level: 2,
+          category: "empathy"
         },
         {
-          text: "失敗の原因と対策を一緒に整理する",
-          level: 3
+          text: "失敗の原因を一緒に分析し、次の対策を考える",
+          level: 3,
+          category: "adjustment"
         },
         {
-          text: "まず、落ち込みの理由を詳しく聞く",
-          level: 3
+          text: "同僚の気持ちを聞き、本人が何を必要としているか理解する",
+          level: 4,
+          category: "empathy"
         },
         {
-          text: "同じような失敗を自分も経験したことを話す",
-          level: 2
+          text: "失敗は誰にでもあることを伝え、気にしなくていいと言う",
+          level: 1,
+          category: "empathy"
         }
       ]
     },
     {
       id: "eq_002",
-      type: "tradeoff",
-      text: "部下が意見を言わなくなった。理由を聞きたいが、プレッシャーになるかもしれない。あなたは？",
+      type: "conflict",
+      text: "チーム内で意見が対立している。あなたは？",
       answers: [
         {
-          text: "本人が話したくなるまで、静かに見守る",
-          level: 2
+          text: "自分の意見が正しいと主張する",
+          level: 1,
+          category: "relationship"
         },
         {
-          text: "定期的に1対1の時間を作り、話しやすい環境を整える",
-          level: 4
+          text: "各人の意見の背景にある価値観や懸念を理解しようとする",
+          level: 4,
+          category: "relationship"
         },
         {
-          text: "直接、何か悩んでいないか聞く",
-          level: 2
+          text: "妥協点を見つけ、双方が納得できる案を提案する",
+          level: 3,
+          category: "adjustment"
         },
         {
-          text: "部下の行動の変化から、理由を推測する",
-          level: 3
+          text: "リーダーに判断を委ねる",
+          level: 1,
+          category: "relationship"
         }
       ]
     },
     {
       id: "eq_003",
-      type: "reverse_trap",
-      text: "チーム内に意見の対立がある。全員が納得する解を作ろうとしている。あなたは？",
+      type: "selfControl",
+      text: "自分の提案が否定された。あなたの最初の反応は？",
       answers: [
         {
-          text: "全員の意見を聞いて、共通点を見つける",
-          level: 2
+          text: "すぐに反論し、自分の考えが正しいことを説明する",
+          level: 1,
+          category: "selfControl"
         },
         {
-          text: "対立の背景にある価値観の違いを理解する",
-          level: 4
+          text: "なぜ否定されたのか、冷静に理由を聞く",
+          level: 4,
+          category: "selfControl"
         },
         {
-          text: "妥協点を作り、全員が受け入れられる案を提示する",
-          level: 3
+          text: "落ち込むが、時間をかけて気持ちを整理する",
+          level: 2,
+          category: "selfControl"
         },
         {
-          text: "対立が健全だと判断し、異なる意見を並行させる",
-          level: 3
+          text: "否定した人の意図を推測し、関係を修復しようとする",
+          level: 3,
+          category: "relationship"
         }
       ]
     },
     {
       id: "eq_004",
-      type: "failure",
-      text: "自分の判断ミスで、チームに迷惑をかけた。あなたは？",
+      type: "awareness",
+      text: "自分が他の人に与えている影響について、あなたは？",
       answers: [
         {
-          text: "ミスを認め、改善策を提示する",
-          level: 3
+          text: "自分の行動がどう受け取られているか、定期的に確認する",
+          level: 4,
+          category: "selfAwareness"
         },
         {
-          text: "ミスの原因を分析し、同じ過ちを防ぐ仕組みを作る",
-          level: 4
+          text: "自分の意図が正しければ、受け取り方は相手の問題だと考える",
+          level: 1,
+          category: "selfAwareness"
         },
         {
-          text: "チームメンバーの負担を軽くするために、自分で対応する",
-          level: 2
+          text: "信頼できる人に、自分の印象を聞くことがある",
+          level: 3,
+          category: "selfAwareness"
         },
         {
-          text: "ミスの背景にあった状況を説明する",
-          level: 2
+          text: "特に気にしていない",
+          level: 1,
+          category: "selfAwareness"
         }
       ]
     },
     {
       id: "eq_005",
-      type: "observation",
-      text: "会議で、ある人が沈黙している。あなたは？",
+      type: "emotion",
+      text: "ストレスを感じたとき、あなたは？",
       answers: [
         {
-          text: "その人の意見を聞く機会を作る",
-          level: 3
+          text: "感情を抑えて、仕事に集中する",
+          level: 2,
+          category: "selfControl"
         },
         {
-          text: "沈黙の理由が、反対意見か、単なる思考中かを見極める",
-          level: 4
+          text: "ストレスの原因を特定し、対処方法を考える",
+          level: 3,
+          category: "adjustment"
         },
         {
-          text: "沈黙を尊重し、無理に話させない",
-          level: 2
+          text: "信頼できる人に話を聞いてもらう",
+          level: 3,
+          category: "relationship"
         },
         {
-          text: "その人の表情や身体言語から、感情を読み取る",
-          level: 3
+          text: "ストレスを感じるのは弱さだと考え、克服しようとする",
+          level: 1,
+          category: "selfControl"
         }
       ]
     },
     {
       id: "eq_006",
-      type: "priority",
-      text: "プロジェクトが遅れている。チームのモチベーションも低い。優先すべきは？",
+      type: "motivation",
+      text: "チームのモチベーションが低下している。あなたは？",
       answers: [
         {
-          text: "スケジュール回復を優先し、チームを鼓舞する",
-          level: 2
+          text: "各メンバーが何に不満を感じているか、個別に話を聞く",
+          level: 4,
+          category: "empathy"
         },
         {
-          text: "モチベーション低下の原因を理解し、対策を立てる",
-          level: 4
+          text: "チーム全体で目標を再確認し、モチベーションを高める",
+          level: 3,
+          category: "relationship"
         },
         {
-          text: "遅れの理由を分析し、現実的な新スケジュールを作る",
-          level: 3
+          text: "モチベーションが低いのは、メンバーの責任だと考える",
+          level: 1,
+          category: "empathy"
         },
         {
-          text: "チームメンバーの疲労を軽くするため、一時的に負荷を減らす",
-          level: 2
+          text: "リーダーに報告し、対応を求める",
+          level: 2,
+          category: "relationship"
         }
       ]
     },
     {
       id: "eq_007",
-      type: "tradeoff",
-      text: "上司の指示と、チームの意見が対立している。あなたは？",
+      type: "feedback",
+      text: "部下にフィードバックを与えるとき、あなたは？",
       answers: [
         {
-          text: "上司の指示に従い、チームを説得する",
-          level: 1
+          text: "改善点を直接的に指摘する",
+          level: 1,
+          category: "relationship"
         },
         {
-          text: "チームの意見を尊重し、上司に相談する",
-          level: 3
+          text: "部下の気持ちや背景を理解した上で、建設的なフィードバックを与える",
+          level: 4,
+          category: "empathy"
         },
         {
-          text: "両者の立場と理由を理解してから、どう進めるか判断する",
-          level: 4
+          text: "強みを認めた上で、改善点を提案する",
+          level: 3,
+          category: "relationship"
         },
         {
-          text: "上司とチームの両者と話し、折衷案を作る",
-          level: 3
+          text: "フィードバックが嫌われるのを避け、曖昧に伝える",
+          level: 1,
+          category: "relationship"
         }
       ]
     },
     {
       id: "eq_008",
-      type: "judgment",
-      text: "チームメンバーが、個人的な悩みを相談してきた。あなたは？",
+      type: "decision",
+      text: "重要な決断をするとき、あなたは？",
       answers: [
         {
-          text: "話を聞き、共感を示す",
-          level: 2
+          text: "論理的に分析し、感情は除外する",
+          level: 2,
+          category: "selfControl"
         },
         {
-          text: "相談内容が仕事に影響するかを理解する",
-          level: 3
+          text: "分析と直感の両方を考慮する",
+          level: 3,
+          category: "adjustment"
         },
         {
-          text: "話を聞きつつ、相手が何を求めているか確認する",
-          level: 4
+          text: "自分の感情や価値観を大切にしながら、判断する",
+          level: 4,
+          category: "selfAwareness"
         },
         {
-          text: "プロとしての距離を保ち、仕事に集中させる",
-          level: 1
+          text: "他の人の意見に従う",
+          level: 1,
+          category: "selfAwareness"
         }
       ]
     },
     {
       id: "eq_009",
-      type: "reverse_trap",
-      text: "チームが一致団結して、ある方針に賛成している。あなたは？",
+      type: "celebration",
+      text: "チームが成功したとき、あなたは？",
       answers: [
         {
-          text: "チームの結束を大切にし、方針を支持する",
-          level: 1
+          text: "次の課題に向けて、すぐに気持ちを切り替える",
+          level: 1,
+          category: "relationship"
         },
         {
-          text: "チームの意見が、本当に全員の意見か確認する",
-          level: 4
+          text: "チーム全体で成功を喜び、各メンバーの貢献を認める",
+          level: 4,
+          category: "relationship"
         },
         {
-          text: "異なる意見がないか、静かに探る",
-          level: 3
+          text: "成功の要因を分析し、次に活かす方法を考える",
+          level: 2,
+          category: "adjustment"
         },
         {
-          text: "チームの判断を信頼し、進める",
-          level: 2
+          text: "自分の貢献を評価してもらうことを期待する",
+          level: 1,
+          category: "selfAwareness"
         }
       ]
     },
     {
       id: "eq_010",
-      type: "situation",
-      text: "自分が間違っていたことに気づいた。相手に謝るべきか、黙っているべきか迷う。あなたは？",
+      type: "diversity",
+      text: "自分と異なる価値観を持つ人と働くとき、あなたは？",
       answers: [
         {
-          text: "相手に謝り、誤解を解く",
-          level: 3
+          text: "その人の価値観を理解し、違いから学ぶ",
+          level: 4,
+          category: "empathy"
         },
         {
-          text: "謝るタイミングと方法を考えてから行動する",
-          level: 4
+          text: "自分の価値観が正しいと考え、相手を説得しようとする",
+          level: 1,
+          category: "empathy"
         },
         {
-          text: "相手が気づいていなければ、言わない",
-          level: 1
+          text: "違いを認めつつ、共通点を見つけようとする",
+          level: 3,
+          category: "relationship"
         },
         {
-          text: "今後の関係を考えて、謝るかどうか判断する",
-          level: 2
+          text: "関わりを最小限にする",
+          level: 1,
+          category: "relationship"
         }
       ]
     }
   ],
-
-  AQ: [
+  aq: [
     {
       id: "aq_001",
-      type: "situation",
-      text: "急な方針変更が起きた。あなたは？",
+      type: "failure",
+      text: "重要なプロジェクトが失敗した。あなたは？",
       answers: [
         {
-          text: "変更理由と影響範囲を確認し、対応の優先順位を決める",
-          level: 4
+          text: "失敗の原因を徹底的に分析し、次に活かす",
+          level: 4,
+          category: "analysis"
         },
         {
-          text: "現場の混乱を最小化するため、まず周囲を落ち着かせる",
-          level: 2
+          text: "失敗を受け入れ、すぐに新しい計画を立てる",
+          level: 3,
+          category: "recovery"
         },
         {
-          text: "既存計画との差分を見て、最小限の変更で対応する",
-          level: 3
+          text: "失敗の責任を他に転嫁する",
+          level: 1,
+          category: "ownership"
         },
         {
-          text: "変更に納得できるまで、背景を確認する",
-          level: 1
+          text: "失敗から立ち直るのに時間がかかる",
+          level: 1,
+          category: "recovery"
         }
       ]
     },
     {
       id: "aq_002",
-      type: "failure",
-      text: "立てた計画が、途中で通用しなくなった。あなたは？",
+      type: "change",
+      text: "急激な環境変化に直面した。あなたは？",
       answers: [
         {
-          text: "計画を修正し、新しい目標を設定する",
-          level: 4
+          text: "変化に抵抗し、従来の方法を守ろうとする",
+          level: 1,
+          category: "adaptation"
         },
         {
-          text: "計画が失敗した理由を分析する",
-          level: 3
+          text: "変化の原因を理解し、新しい対応策を考える",
+          level: 4,
+          category: "adaptation"
         },
         {
-          text: "元の計画に戻すか、新計画にするか、慎重に判断する",
-          level: 2
+          text: "変化に対応するため、柔軟に行動する",
+          level: 3,
+          category: "adaptation"
         },
         {
-          text: "計画の失敗に落ち込み、対応を遅延させる",
-          level: 1
+          text: "変化に戸惑い、判断ができない",
+          level: 1,
+          category: "adaptation"
         }
       ]
     },
     {
       id: "aq_003",
-      type: "tradeoff",
-      text: "既存の方法では対応できない問題が出た。新しい方法を試すか、既存方法を工夫するか？",
+      type: "criticism",
+      text: "厳しい批判を受けた。あなたは？",
       answers: [
         {
-          text: "既存方法の工夫を優先し、新方法は最後の手段にする",
-          level: 2
+          text: "批判を真摯に受け止め、改善点を検討する",
+          level: 4,
+          category: "recovery"
         },
         {
-          text: "新方法の有効性を検証しながら、段階的に導入する",
-          level: 4
+          text: "批判者の意図を理解しようとする",
+          level: 3,
+          category: "analysis"
         },
         {
-          text: "新方法を試す前に、既存方法の限界を明確にする",
-          level: 3
+          text: "批判に反発し、自分の正当性を主張する",
+          level: 1,
+          category: "recovery"
         },
         {
-          text: "新方法に切り替える",
-          level: 2
+          text: "批判されたことで、落ち込んでしまう",
+          level: 1,
+          category: "recovery"
         }
       ]
     },
     {
       id: "aq_004",
-      type: "reverse_trap",
-      text: "困難な状況だが、時間をかけて対応すれば解決できそう。あなたは？",
+      type: "uncertainty",
+      text: "先行きが不透明な状況で、あなたは？",
       answers: [
         {
-          text: "時間をかけて、最善の対応を探る",
-          level: 2
+          text: "不確実性を受け入れ、現在できることに集中する",
+          level: 3,
+          category: "persistence"
         },
         {
-          text: "時間的余裕があるか確認し、対応速度を決める",
-          level: 4
+          text: "不確実性の中で、複数のシナリオを想定する",
+          level: 4,
+          category: "analysis"
         },
         {
-          text: "早期に対応し、その後の改善に備える",
-          level: 3
+          text: "不確実性に不安を感じ、判断ができない",
+          level: 1,
+          category: "persistence"
         },
         {
-          text: "完璧な対応を目指し、時間をかける",
-          level: 1
+          text: "確実性が得られるまで、行動を待つ",
+          level: 2,
+          category: "persistence"
         }
       ]
     },
     {
       id: "aq_005",
-      type: "priority",
-      text: "複数の問題が同時に起きた。あなたは？",
+      type: "responsibility",
+      text: "自分の判断ミスが、大きな損失を招いた。あなたは？",
       answers: [
         {
-          text: "緊急度と影響度で優先順位を決め、順番に対応する",
-          level: 4
+          text: "責任を認め、改善策を実行する",
+          level: 4,
+          category: "ownership"
         },
         {
-          text: "すべての問題に同時に対応する",
-          level: 2
+          text: "状況の複雑さを理由に、責任を軽減しようとする",
+          level: 1,
+          category: "ownership"
         },
         {
-          text: "最も簡単に解決できる問題から始める",
-          level: 1
+          text: "ミスから学び、同じ過ちを繰り返さない",
+          level: 3,
+          category: "ownership"
         },
         {
-          text: "問題の根本原因を見つけ、一度に解決する方法を探る",
-          level: 3
+          text: "ミスを後悔し、自信を失う",
+          level: 1,
+          category: "recovery"
         }
       ]
     },
     {
       id: "aq_006",
-      type: "judgment",
-      text: "予想外の結果が出た。対応を急ぐべきか、原因を調べるべきか？",
+      type: "pressure",
+      text: "高いプレッシャーの中で、あなたは？",
       answers: [
         {
-          text: "原因を調べてから対応する",
-          level: 2
+          text: "プレッシャーを感じながらも、冷静に対応する",
+          level: 3,
+          category: "persistence"
         },
         {
-          text: "緊急性に応じて、対応と調査を並行させる",
-          level: 4
+          text: "プレッシャーを成長の機会と捉える",
+          level: 4,
+          category: "persistence"
         },
         {
-          text: "まず対応し、その後原因を調べる",
-          level: 3
+          text: "プレッシャーでパニックになり、判断ができない",
+          level: 1,
+          category: "persistence"
         },
         {
-          text: "原因が分かるまで、対応を待つ",
-          level: 1
+          text: "プレッシャーから逃げたいと思う",
+          level: 1,
+          category: "persistence"
         }
       ]
     },
     {
       id: "aq_007",
-      type: "observation",
-      text: "環境が大きく変わった。対応が必要か、様子を見るべきか？",
+      type: "learning",
+      text: "新しいスキルを習得する必要がある。あなたは？",
       answers: [
         {
-          text: "変化の影響を評価してから、対応を決める",
-          level: 4
+          text: "習得に時間がかかることを理由に、避ける",
+          level: 1,
+          category: "adaptation"
         },
         {
-          text: "変化に先制的に対応する",
-          level: 3
+          text: "段階的に学び、実践を通じて習得する",
+          level: 3,
+          category: "adaptation"
         },
         {
-          text: "様子を見て、問題が出たら対応する",
-          level: 2
+          text: "習得の過程で失敗することを想定し、対策を立てる",
+          level: 4,
+          category: "analysis"
         },
         {
-          text: "変化を無視し、既存の方法を続ける",
-          level: 1
+          text: "他の人に任せる",
+          level: 1,
+          category: "adaptation"
         }
       ]
     },
     {
       id: "aq_008",
-      type: "tradeoff",
-      text: "安定性と成長のどちらを優先するか、判断に迷う。あなたは？",
+      type: "conflict",
+      text: "対立する利害関係者の間で、調整が必要だ。あなたは？",
       answers: [
         {
-          text: "安定性を優先する",
-          level: 1
+          text: "対立を避け、どちらかの側に付く",
+          level: 1,
+          category: "analysis"
         },
         {
-          text: "成長を優先する",
-          level: 2
+          text: "各利害関係者の立場を理解し、共通点を見つける",
+          level: 4,
+          category: "analysis"
         },
         {
-          text: "状況に応じて、バランスを調整する",
-          level: 4
+          text: "妥協点を見つけ、調整する",
+          level: 3,
+          category: "adaptation"
         },
         {
-          text: "安定性を保ちながら、成長の機会を探る",
-          level: 3
+          text: "対立を解決するのは難しいと考える",
+          level: 1,
+          category: "analysis"
         }
       ]
     },
     {
       id: "aq_009",
-      type: "reverse_trap",
-      text: "失敗から学べることが多い状況。失敗を受け入れるべきか？",
+      type: "resource",
+      text: "限られたリソースで、大きな目標を達成する必要がある。あなたは？",
       answers: [
         {
-          text: "失敗を避け、安全な方法を選ぶ",
-          level: 1
+          text: "リソースが不足しているので、目標を下げる",
+          level: 1,
+          category: "adaptation"
         },
         {
-          text: "失敗を学習機会と捉え、挑戦する",
-          level: 3
+          text: "リソースの制約の中で、最大の効果を生み出す方法を考える",
+          level: 4,
+          category: "analysis"
         },
         {
-          text: "失敗のコストと学習価値を比較してから判断する",
-          level: 4
+          text: "必要なリソースを確保するよう、交渉する",
+          level: 3,
+          category: "adaptation"
         },
         {
-          text: "失敗は避けられないと考え、対応策を準備する",
-          level: 3
+          text: "リソースが足りないことに、不満を言う",
+          level: 1,
+          category: "recovery"
         }
       ]
     },
     {
       id: "aq_010",
-      type: "situation",
-      text: "自分の予測が外れた。あなたは？",
+      type: "growth",
+      text: "困難な経験から、あなたは？",
       answers: [
         {
-          text: "予測モデルを改善する",
-          level: 4
+          text: "できるだけ忘れようとする",
+          level: 1,
+          category: "recovery"
         },
         {
-          text: "予測が外れた理由を分析する",
-          level: 3
+          text: "経験から教訓を引き出し、次に活かす",
+          level: 4,
+          category: "analysis"
         },
         {
-          text: "予測の失敗から、今後の対応を考える",
-          level: 3
+          text: "経験を受け入れ、前に進む",
+          level: 3,
+          category: "recovery"
         },
         {
-          text: "予測の失敗を受け入れ、次に進む",
-          level: 2
+          text: "経験について、他の人に相談する",
+          level: 2,
+          category: "recovery"
         }
       ]
     }
   ],
-
-  SQ: [
+  sq: [
     {
       id: "sq_001",
-      type: "observation",
-      text: "会議の雰囲気が微妙に変わった。あなたは？",
+      type: "atmosphere",
+      text: "会議の雰囲気が微妙だ。あなたは？",
       answers: [
         {
-          text: "変化に気づき、その理由を探る",
-          level: 4
+          text: "雰囲気を読み、発言のタイミングを調整する",
+          level: 4,
+          category: "atmosphere"
         },
         {
-          text: "雰囲気の変化を感じるが、議論を続ける",
-          level: 2
+          text: "雰囲気に関係なく、自分の意見を述べる",
+          level: 1,
+          category: "atmosphere"
         },
         {
-          text: "誰かの発言が影響したと推測する",
-          level: 3
+          text: "雰囲気が悪い理由を推測し、改善しようとする",
+          level: 3,
+          category: "atmosphere"
         },
         {
-          text: "雰囲気の変化に気づかない",
-          level: 1
+          text: "雰囲気に気づかない",
+          level: 1,
+          category: "atmosphere"
         }
       ]
     },
     {
       id: "sq_002",
-      type: "judgment",
-      text: "グループ内に、言葉では言わない不満がある。あなたは？",
+      type: "influence",
+      text: "チーム内で意見が分かれている。あなたは？",
       answers: [
         {
-          text: "不満を言葉にして、オープンに話し合う",
-          level: 3
+          text: "自分の意見を強く主張し、他を説得する",
+          level: 2,
+          category: "power"
         },
         {
-          text: "不満の対象と理由を理解し、対応を考える",
-          level: 4
+          text: "各意見の背景を理解し、共通点を見つける",
+          level: 4,
+          category: "influence"
         },
         {
-          text: "不満を察知するが、触れない",
-          level: 2
+          text: "多数派の意見に従う",
+          level: 1,
+          category: "influence"
         },
         {
-          text: "不満があるかどうか、確認する",
-          level: 2
+          text: "リーダーの判断に委ねる",
+          level: 2,
+          category: "influence"
         }
       ]
     },
     {
       id: "sq_003",
-      type: "reverse_trap",
-      text: "全員が同意しているように見える。あなたは？",
+      type: "role",
+      text: "チーム内での自分の役割について、あなたは？",
       answers: [
         {
-          text: "全員の同意を信頼し、進める",
-          level: 1
+          text: "与えられた役割を果たすことに専念する",
+          level: 2,
+          category: "role"
         },
         {
-          text: "本当に全員が同意しているか、確認する",
-          level: 4
+          text: "チーム全体の目標を考え、柔軟に役割を調整する",
+          level: 4,
+          category: "role"
         },
         {
-          text: "異なる意見がないか、探る",
-          level: 3
+          text: "自分の役割を超えて、他のことはしない",
+          level: 1,
+          category: "role"
         },
         {
-          text: "同意の質（納得度）を評価する",
-          level: 3
+          text: "自分の役割が不明確で、困惑している",
+          level: 1,
+          category: "role"
         }
       ]
     },
     {
       id: "sq_004",
-      type: "influence",
-      text: "意見を変えてもらう必要がある。あなたは？",
+      type: "structure",
+      text: "組織の構造や権力関係について、あなたは？",
       answers: [
         {
-          text: "相手の立場と価値観を理解してから、話す",
-          level: 4
+          text: "構造を理解し、効果的に働きかける",
+          level: 4,
+          category: "structure"
         },
         {
-          text: "論理的に説得する",
-          level: 2
+          text: "構造に関係なく、自分の方法で行動する",
+          level: 1,
+          category: "structure"
         },
         {
-          text: "相手が聞き入れやすいタイミングを選ぶ",
-          level: 3
+          text: "構造に従い、指示を待つ",
+          level: 2,
+          category: "structure"
         },
         {
-          text: "相手の感情に訴える",
-          level: 2
+          text: "構造を理解していない",
+          level: 1,
+          category: "structure"
         }
       ]
     },
     {
       id: "sq_005",
-      type: "tradeoff",
-      text: "本音と建前が異なる状況。どう対応するか？",
+      type: "network",
+      text: "人間関係のネットワークについて、あなたは？",
       answers: [
         {
-          text: "建前を尊重し、本音は言わない",
-          level: 1
+          text: "必要な人間関係を意図的に構築する",
+          level: 3,
+          category: "influence"
         },
         {
-          text: "本音を優先し、率直に話す",
-          level: 2
+          text: "人間関係は自然に形成されるものと考える",
+          level: 1,
+          category: "influence"
         },
         {
-          text: "本音と建前の両者を理解し、状況に応じて対応する",
-          level: 4
+          text: "人間関係の価値を理解し、維持する",
+          level: 4,
+          category: "influence"
         },
         {
-          text: "本音を察知し、それに対応する",
-          level: 3
+          text: "人間関係に興味がない",
+          level: 1,
+          category: "influence"
         }
       ]
     },
     {
       id: "sq_006",
-      type: "situation",
-      text: "チーム内に派閥がある。あなたは？",
+      type: "politics",
+      text: "職場の政治的な動きについて、あなたは？",
       answers: [
         {
-          text: "派閥を無視し、全員を公平に扱う",
-          level: 1
+          text: "政治的な動きを避け、仕事に集中する",
+          level: 1,
+          category: "atmosphere"
         },
         {
-          text: "派閥の存在と理由を理解する",
-          level: 4
+          text: "政治的な動きを理解し、適切に対応する",
+          level: 4,
+          category: "atmosphere"
         },
         {
-          text: "派閥間の対立を避ける",
-          level: 2
+          text: "政治的な動きに巻き込まれないよう、注意する",
+          level: 2,
+          category: "atmosphere"
         },
         {
-          text: "派閥の影響を最小化する工夫をする",
-          level: 3
+          text: "政治的な動きに参加し、自分の利益を優先する",
+          level: 2,
+          category: "atmosphere"
         }
       ]
     },
     {
       id: "sq_007",
-      type: "priority",
-      text: "個人の利益と組織の利益が対立している。あなたは？",
+      type: "communication",
+      text: "異なる立場の人と、効果的にコミュニケーションするには？",
       answers: [
         {
-          text: "組織の利益を優先する",
-          level: 2
+          text: "相手の立場を理解し、相手に合わせて伝える",
+          level: 4,
+          category: "influence"
         },
         {
-          text: "個人の利益を優先する",
-          level: 1
+          text: "自分の伝え方を変えない",
+          level: 1,
+          category: "influence"
         },
         {
-          text: "両者の利益を理解し、折衷点を探る",
-          level: 4
+          text: "相手の言語や文化を学ぶ",
+          level: 3,
+          category: "influence"
         },
         {
-          text: "個人が納得できる形で、組織の利益を実現する",
-          level: 3
+          text: "共通言語を見つけ、その中で伝える",
+          level: 3,
+          category: "influence"
         }
       ]
     },
     {
       id: "sq_008",
-      type: "observation",
-      text: "ある人が、グループから距離を置いている。あなたは？",
+      type: "leadership",
+      text: "リーダーシップを発揮するとき、あなたは？",
       answers: [
         {
-          text: "その人に話しかけ、理由を聞く",
-          level: 2
+          text: "自分の権限を使い、指示を出す",
+          level: 2,
+          category: "power"
         },
         {
-          text: "その人が距離を置く理由を推測する",
-          level: 3
+          text: "メンバーの価値観や動機を理解し、導く",
+          level: 4,
+          category: "power"
         },
         {
-          text: "その人の背景と心理を理解しようとする",
-          level: 4
+          text: "リーダーシップは必要ないと考える",
+          level: 1,
+          category: "power"
         },
         {
-          text: "その人の選択を尊重し、無理に近づかない",
-          level: 2
+          text: "リーダーシップを発揮することに不安がある",
+          level: 1,
+          category: "power"
         }
       ]
     },
     {
       id: "sq_009",
-      type: "reverse_trap",
-      text: "自分が言ったことが、予想と違う反応を呼んだ。あなたは？",
+      type: "collaboration",
+      text: "異なるチーム間での協力が必要だ。あなたは？",
       answers: [
         {
-          text: "自分の発言を正当化する",
-          level: 1
+          text: "各チームの目標や制約を理解し、調整する",
+          level: 4,
+          category: "structure"
         },
         {
-          text: "相手の反応から、自分の発言がどう受け取られたか理解する",
-          level: 4
+          text: "自分のチームの利益を優先する",
+          level: 1,
+          category: "structure"
         },
         {
-          text: "相手の反応が予想外だったことに気づく",
-          level: 2
+          text: "全体の目標を優先し、妥協する",
+          level: 3,
+          category: "structure"
         },
         {
-          text: "相手の感情を考慮し、フォローアップする",
-          level: 3
+          text: "協力は難しいと考える",
+          level: 1,
+          category: "structure"
         }
       ]
     },
     {
       id: "sq_010",
-      type: "judgment",
-      text: "複数の利害関係者がいる。あなたは？",
+      type: "influence",
+      text: "組織全体に影響を与えるには、あなたは？",
       answers: [
         {
-          text: "各利害関係者の立場と優先順位を理解する",
-          level: 4
+          text: "権力を使い、強制する",
+          level: 1,
+          category: "power"
         },
         {
-          text: "最も影響力のある人を優先する",
-          level: 2
+          text: "信頼と共感を基盤に、影響を与える",
+          level: 4,
+          category: "power"
         },
         {
-          text: "全員を公平に扱う",
-          level: 1
+          text: "組織全体に影響を与えることはできないと考える",
+          level: 1,
+          category: "power"
         },
         {
-          text: "利害関係者間の調整役になる",
-          level: 3
+          text: "少数の有力者に働きかける",
+          level: 3,
+          category: "power"
         }
       ]
     }
   ],
-
-  XQ: [
+  xq: [
     {
       id: "xq_001",
       type: "learning",
-      text: "新しい分野に取り組む。あなたは？",
+      text: "新しい分野を学ぶとき、あなたは？",
       answers: [
         {
           text: "基礎から体系的に学ぶ",
-          level: 3
+          level: 3,
+          category: "learning"
         },
         {
-          text: "実践しながら、必要な知識を学ぶ",
-          level: 3
+          text: "実践を通じて、必要な知識を習得する",
+          level: 3,
+          category: "learning"
         },
         {
-          text: "既存知識との関連性を見つけながら学ぶ",
-          level: 4
+          text: "既存の知識と関連付けながら、理解を深める",
+          level: 4,
+          category: "learning"
         },
         {
-          text: "成功事例から、パターンを学ぶ",
-          level: 3
+          text: "学習に時間がかかるので、避ける",
+          level: 1,
+          category: "learning"
         }
       ]
     },
     {
       id: "xq_002",
       type: "abstraction",
-      text: "複数の経験から、共通パターンを見つけた。あなたは？",
+      text: "複数の経験から、共通パターンを見つけるとき、あなたは？",
       answers: [
         {
-          text: "パターンを一般化し、他の場面に応用する",
-          level: 4
+          text: "表面的な共通点を見つける",
+          level: 1,
+          category: "abstraction"
         },
         {
-          text: "パターンが本当に通用するか、検証する",
-          level: 3
+          text: "深い構造的な共通点を見つける",
+          level: 4,
+          category: "abstraction"
         },
         {
-          text: "パターンを記録し、今後の参考にする",
-          level: 2
+          text: "共通点と例外の両方を理解する",
+          level: 3,
+          category: "abstraction"
         },
         {
-          text: "パターンが例外を含むか、確認する",
-          level: 3
+          text: "共通パターンを見つけることは難しいと考える",
+          level: 1,
+          category: "abstraction"
         }
       ]
     },
     {
       id: "xq_003",
-      type: "reverse_trap",
-      text: "失敗から学ぼうとしている。あなたは？",
+      type: "transfer",
+      text: "ある分野で学んだことを、別の分野に応用するとき、あなたは？",
       answers: [
         {
-          text: "失敗の原因を徹底的に分析する",
-          level: 3
+          text: "直接的に応用する",
+          level: 2,
+          category: "transfer"
         },
         {
-          text: "失敗から、何が学べるかを考える",
-          level: 4
+          text: "応用の前に、異なる分野の特性を理解する",
+          level: 4,
+          category: "transfer"
         },
         {
-          text: "失敗を反省し、二度と繰り返さないようにする",
-          level: 2
+          text: "応用は難しいと考える",
+          level: 1,
+          category: "transfer"
         },
         {
-          text: "失敗の背景にある前提条件を理解する",
-          level: 3
+          text: "応用の可能性を探索する",
+          level: 3,
+          category: "transfer"
         }
       ]
     },
     {
       id: "xq_004",
-      type: "application",
-      text: "学んだ知識を、新しい場面に応用する。あなたは？",
+      type: "reproducibility",
+      text: "成功した経験を、別の状況で再現するとき、あなたは？",
       answers: [
         {
-          text: "そのまま応用する",
-          level: 1
+          text: "同じ方法を繰り返す",
+          level: 1,
+          category: "reproducibility"
         },
         {
-          text: "新しい場面に合わせて、調整してから応用する",
-          level: 4
+          text: "成功の本質を理解し、状況に合わせて応用する",
+          level: 4,
+          category: "reproducibility"
         },
         {
-          text: "応用できるか、まず検証する",
-          level: 3
+          text: "成功の要因を分析する",
+          level: 3,
+          category: "reproducibility"
         },
         {
-          text: "新しい場面の特性を理解してから、応用方法を考える",
-          level: 4
+          text: "再現は難しいと考える",
+          level: 1,
+          category: "reproducibility"
         }
       ]
     },
     {
       id: "xq_005",
-      type: "tradeoff",
-      text: "深い知識と広い知識のどちらを優先するか？",
+      type: "reflection",
+      text: "経験から学ぶために、あなたは？",
       answers: [
         {
-          text: "深い知識を優先する",
-          level: 2
+          text: "経験をそのまま受け入れる",
+          level: 1,
+          category: "learning"
         },
         {
-          text: "広い知識を優先する",
-          level: 2
+          text: "経験を振り返り、教訓を引き出す",
+          level: 4,
+          category: "learning"
         },
         {
-          text: "状況に応じて、バランスを調整する",
-          level: 4
+          text: "経験を他の人と共有し、議論する",
+          level: 3,
+          category: "learning"
         },
         {
-          text: "深さと広さの両立を目指す",
-          level: 3
+          text: "経験から学ぶことは難しいと考える",
+          level: 1,
+          category: "learning"
         }
       ]
     },
     {
       id: "xq_006",
-      type: "judgment",
-      text: "自分の経験が、一般的な知識と異なる。あなたは？",
+      type: "growth",
+      text: "成長の機会について、あなたは？",
       answers: [
         {
-          text: "一般的な知識を信頼し、経験を再検討する",
-          level: 1
+          text: "成長の機会を積極的に探す",
+          level: 4,
+          category: "growth"
         },
         {
-          text: "経験を信頼し、知識を疑う",
-          level: 2
+          text: "成長の機会が与えられるのを待つ",
+          level: 1,
+          category: "growth"
         },
         {
-          text: "両者の違いから、新しい理解を得る",
-          level: 4
+          text: "成長の機会を認識し、活用する",
+          level: 3,
+          category: "growth"
         },
         {
-          text: "経験と知識の両者を統合する",
-          level: 3
+          text: "成長は必要ないと考える",
+          level: 1,
+          category: "growth"
         }
       ]
     },
     {
       id: "xq_007",
-      type: "observation",
-      text: "他人の成功を見て、学べることがないか考える。あなたは？",
+      type: "adaptation",
+      text: "新しい環境に適応するとき、あなたは？",
       answers: [
         {
-          text: "成功の理由を分析する",
-          level: 3
+          text: "環境に合わせて、自分を変える",
+          level: 2,
+          category: "transfer"
         },
         {
-          text: "成功の背景にある、見えない工夫を理解する",
-          level: 4
+          text: "環境を理解し、自分の強みを活かす方法を見つける",
+          level: 4,
+          category: "transfer"
         },
         {
-          text: "成功のパターンを、自分に応用できるか考える",
-          level: 3
+          text: "環境に抵抗する",
+          level: 1,
+          category: "transfer"
         },
         {
-          text: "成功から、自分の課題を見つける",
-          level: 3
+          text: "環境に適応するのに時間がかかる",
+          level: 2,
+          category: "transfer"
         }
       ]
     },
     {
       id: "xq_008",
-      type: "reverse_trap",
-      text: "知識が増えると、判断が難しくなることがある。あなたは？",
+      type: "knowledge",
+      text: "知識を習得するとき、あなたは？",
       answers: [
         {
-          text: "知識を増やし続ける",
-          level: 1
+          text: "暗記する",
+          level: 1,
+          category: "learning"
         },
         {
-          text: "知識の質を優先し、量は制限する",
-          level: 2
+          text: "理解し、応用できるようにする",
+          level: 4,
+          category: "learning"
         },
         {
-          text: "知識を統合し、シンプルな理解を作る",
-          level: 4
+          text: "必要な知識だけを習得する",
+          level: 2,
+          category: "learning"
         },
         {
-          text: "知識の複雑性を受け入れ、判断を工夫する",
-          level: 3
+          text: "知識習得は効率的ではないと考える",
+          level: 1,
+          category: "learning"
         }
       ]
     },
     {
       id: "xq_009",
-      type: "priority",
-      text: "複数の学習機会がある。あなたは？",
+      type: "innovation",
+      text: "既存の方法を改善するとき、あなたは？",
       answers: [
         {
-          text: "すべてを学ぼうとする",
-          level: 1
+          text: "既存の方法を尊重し、小さな改善をする",
+          level: 2,
+          category: "abstraction"
         },
         {
-          text: "最も興味のあるものを選ぶ",
-          level: 2
+          text: "根本的な原因を理解し、革新的な改善を考える",
+          level: 4,
+          category: "abstraction"
         },
         {
-          text: "現在の課題に最も役立つものを選ぶ",
-          level: 3
+          text: "既存の方法を変えることに抵抗がある",
+          level: 1,
+          category: "abstraction"
         },
         {
-          text: "長期的な成長と短期的な課題のバランスを考えて選ぶ",
-          level: 4
+          text: "改善の可能性を探索する",
+          level: 3,
+          category: "abstraction"
         }
       ]
     },
     {
       id: "xq_010",
-      type: "situation",
-      text: "学んだことが、期待と異なる結果をもたらした。あなたは？",
+      type: "mastery",
+      text: "専門性を深めるために、あなたは？",
       answers: [
         {
-          text: "学習の失敗と考え、別の方法を試す",
-          level: 2
+          text: "現在のレベルで満足する",
+          level: 1,
+          category: "growth"
         },
         {
-          text: "期待と結果の違いから、新しい理解を得る",
-          level: 4
+          text: "継続的に学習し、専門性を高める",
+          level: 4,
+          category: "growth"
         },
         {
-          text: "学習の応用方法に問題があったと考える",
-          level: 3
+          text: "必要な専門性は既に習得したと考える",
+          level: 1,
+          category: "growth"
         },
         {
-          text: "学習を続け、より深い理解を目指す",
-          level: 2
+          text: "専門性を高めるための計画を立てる",
+          level: 3,
+          category: "growth"
         }
       ]
     }
   ]
 };
-
-// 質問をシャッフルして返す関数
-function getShuffledQuestions(category) {
-  const categoryQuestions = questions[category];
-  return categoryQuestions.sort(() => Math.random() - 0.5);
-}
-
-// すべてのカテゴリの質問を取得
-function getAllQuestions() {
-  return questions;
-}
