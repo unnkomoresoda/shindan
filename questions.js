@@ -7,7 +7,7 @@ const questions = {
       id: "iq_001",
       type: "judgment",
       text: "新しいプロジェクトの企画書を読んだ。提案内容は魅力的だが、前提条件に矛盾を感じた。あなたは？",
-      choices: [
+      answers: [
         {
           text: "矛盾を指摘して、修正を求める前に、提案者の意図を詳しく聞く",
           level: 3
@@ -30,7 +30,7 @@ const questions = {
       id: "iq_002",
       type: "pattern",
       text: "データ分析の結果、予想と逆の傾向が出た。あなたの最初の行動は？",
-      choices: [
+      answers: [
         {
           text: "分析方法に誤りがないか、まず手法を検証する",
           level: 4
@@ -53,7 +53,7 @@ const questions = {
       id: "iq_003",
       type: "abstraction",
       text: "複数の失敗事例を見ている。共通パターンを見つけたが、例外もある。あなたは？",
-      choices: [
+      answers: [
         {
           text: "共通パターンを優先し、例外は後で分析する",
           level: 2
@@ -76,7 +76,7 @@ const questions = {
       id: "iq_004",
       type: "reverse_trap",
       text: "複雑な問題について、シンプルな解釈と複雑な解釈の両方が成立する。あなたは？",
-      choices: [
+      answers: [
         {
           text: "シンプルな解釈を採用し、実装を優先する",
           level: 3
@@ -99,7 +99,7 @@ const questions = {
       id: "iq_005",
       type: "tradeoff",
       text: "提案Aは論理的だが実装が難しい。提案Bは実装しやすいが仮定が多い。あなたは？",
-      choices: [
+      answers: [
         {
           text: "実装可能性を優先し、Bで始めて改善する",
           level: 3
@@ -122,7 +122,7 @@ const questions = {
       id: "iq_006",
       type: "judgment",
       text: "ある理論が一般的だが、自分の経験では異なる。あなたは？",
-      choices: [
+      answers: [
         {
           text: "自分の経験が特殊ケースか、理論が不完全かを区別する",
           level: 4
@@ -145,7 +145,7 @@ const questions = {
       id: "iq_007",
       type: "pattern",
       text: "情報が不足しているが、判断を求められている。あなたは？",
-      choices: [
+      answers: [
         {
           text: "必要な情報を明確にして、判断を遅延させる",
           level: 3
@@ -168,7 +168,7 @@ const questions = {
       id: "iq_008",
       type: "abstraction",
       text: "細部の議論が続いている。全体像を見直すべきか判断に迷う。あなたは？",
-      choices: [
+      answers: [
         {
           text: "細部を詰めることが全体の精度を高めると考える",
           level: 1
@@ -191,7 +191,7 @@ const questions = {
       id: "iq_009",
       type: "reverse_trap",
       text: "自分の分析結果が、多くの人の直感と異なる。あなたは？",
-      choices: [
+      answers: [
         {
           text: "自分の分析を信頼し、結果を提示する",
           level: 2
@@ -214,7 +214,7 @@ const questions = {
       id: "iq_010",
       type: "judgment",
       text: "複数の専門家の意見が対立している。あなたは？",
-      choices: [
+      answers: [
         {
           text: "各専門家の前提条件や視点の違いを理解する",
           level: 4
@@ -240,7 +240,7 @@ const questions = {
       id: "eq_001",
       type: "situation",
       text: "同僚が失敗して落ち込んでいる。あなたは？",
-      choices: [
+      answers: [
         {
           text: "励ましの言葉をかけ、前向きになるよう促す",
           level: 2
@@ -263,7 +263,7 @@ const questions = {
       id: "eq_002",
       type: "tradeoff",
       text: "部下が意見を言わなくなった。理由を聞きたいが、プレッシャーになるかもしれない。あなたは？",
-      choices: [
+      answers: [
         {
           text: "本人が話したくなるまで、静かに見守る",
           level: 2
@@ -286,7 +286,7 @@ const questions = {
       id: "eq_003",
       type: "reverse_trap",
       text: "チーム内に意見の対立がある。全員が納得する解を作ろうとしている。あなたは？",
-      choices: [
+      answers: [
         {
           text: "全員の意見を聞いて、共通点を見つける",
           level: 2
@@ -309,7 +309,7 @@ const questions = {
       id: "eq_004",
       type: "failure",
       text: "自分の判断ミスで、チームに迷惑をかけた。あなたは？",
-      choices: [
+      answers: [
         {
           text: "ミスを認め、改善策を提示する",
           level: 3
@@ -332,7 +332,7 @@ const questions = {
       id: "eq_005",
       type: "observation",
       text: "会議で、ある人が沈黙している。あなたは？",
-      choices: [
+      answers: [
         {
           text: "その人の意見を聞く機会を作る",
           level: 3
@@ -355,7 +355,7 @@ const questions = {
       id: "eq_006",
       type: "priority",
       text: "プロジェクトが遅れている。チームのモチベーションも低い。優先すべきは？",
-      choices: [
+      answers: [
         {
           text: "スケジュール回復を優先し、チームを鼓舞する",
           level: 2
@@ -378,7 +378,7 @@ const questions = {
       id: "eq_007",
       type: "tradeoff",
       text: "上司の指示と、チームの意見が対立している。あなたは？",
-      choices: [
+      answers: [
         {
           text: "上司の指示に従い、チームを説得する",
           level: 1
@@ -401,7 +401,7 @@ const questions = {
       id: "eq_008",
       type: "judgment",
       text: "チームメンバーが、個人的な悩みを相談してきた。あなたは？",
-      choices: [
+      answers: [
         {
           text: "話を聞き、共感を示す",
           level: 2
@@ -424,7 +424,7 @@ const questions = {
       id: "eq_009",
       type: "reverse_trap",
       text: "チームが一致団結して、ある方針に賛成している。あなたは？",
-      choices: [
+      answers: [
         {
           text: "チームの結束を大切にし、方針を支持する",
           level: 1
@@ -447,7 +447,7 @@ const questions = {
       id: "eq_010",
       type: "situation",
       text: "自分が間違っていたことに気づいた。相手に謝るべきか、黙っているべきか迷う。あなたは？",
-      choices: [
+      answers: [
         {
           text: "相手に謝り、誤解を解く",
           level: 3
@@ -473,7 +473,7 @@ const questions = {
       id: "aq_001",
       type: "situation",
       text: "急な方針変更が起きた。あなたは？",
-      choices: [
+      answers: [
         {
           text: "変更理由と影響範囲を確認し、対応の優先順位を決める",
           level: 4
@@ -496,7 +496,7 @@ const questions = {
       id: "aq_002",
       type: "failure",
       text: "立てた計画が、途中で通用しなくなった。あなたは？",
-      choices: [
+      answers: [
         {
           text: "計画を修正し、新しい目標を設定する",
           level: 4
@@ -519,7 +519,7 @@ const questions = {
       id: "aq_003",
       type: "tradeoff",
       text: "既存の方法では対応できない問題が出た。新しい方法を試すか、既存方法を工夫するか？",
-      choices: [
+      answers: [
         {
           text: "既存方法の工夫を優先し、新方法は最後の手段にする",
           level: 2
@@ -542,7 +542,7 @@ const questions = {
       id: "aq_004",
       type: "reverse_trap",
       text: "困難な状況だが、時間をかけて対応すれば解決できそう。あなたは？",
-      choices: [
+      answers: [
         {
           text: "時間をかけて、最善の対応を探る",
           level: 2
@@ -565,7 +565,7 @@ const questions = {
       id: "aq_005",
       type: "priority",
       text: "複数の問題が同時に起きた。あなたは？",
-      choices: [
+      answers: [
         {
           text: "緊急度と影響度で優先順位を決め、順番に対応する",
           level: 4
@@ -588,7 +588,7 @@ const questions = {
       id: "aq_006",
       type: "judgment",
       text: "予想外の結果が出た。対応を急ぐべきか、原因を調べるべきか？",
-      choices: [
+      answers: [
         {
           text: "原因を調べてから対応する",
           level: 2
@@ -611,7 +611,7 @@ const questions = {
       id: "aq_007",
       type: "observation",
       text: "環境が大きく変わった。対応が必要か、様子を見るべきか？",
-      choices: [
+      answers: [
         {
           text: "変化の影響を評価してから、対応を決める",
           level: 4
@@ -634,7 +634,7 @@ const questions = {
       id: "aq_008",
       type: "tradeoff",
       text: "安定性と成長のどちらを優先するか、判断に迷う。あなたは？",
-      choices: [
+      answers: [
         {
           text: "安定性を優先する",
           level: 1
@@ -657,7 +657,7 @@ const questions = {
       id: "aq_009",
       type: "reverse_trap",
       text: "失敗から学べることが多い状況。失敗を受け入れるべきか？",
-      choices: [
+      answers: [
         {
           text: "失敗を避け、安全な方法を選ぶ",
           level: 1
@@ -680,7 +680,7 @@ const questions = {
       id: "aq_010",
       type: "situation",
       text: "自分の予測が外れた。あなたは？",
-      choices: [
+      answers: [
         {
           text: "予測モデルを改善する",
           level: 4
@@ -706,7 +706,7 @@ const questions = {
       id: "sq_001",
       type: "observation",
       text: "会議の雰囲気が微妙に変わった。あなたは？",
-      choices: [
+      answers: [
         {
           text: "変化に気づき、その理由を探る",
           level: 4
@@ -729,7 +729,7 @@ const questions = {
       id: "sq_002",
       type: "judgment",
       text: "グループ内に、言葉では言わない不満がある。あなたは？",
-      choices: [
+      answers: [
         {
           text: "不満を言葉にして、オープンに話し合う",
           level: 3
@@ -752,7 +752,7 @@ const questions = {
       id: "sq_003",
       type: "reverse_trap",
       text: "全員が同意しているように見える。あなたは？",
-      choices: [
+      answers: [
         {
           text: "全員の同意を信頼し、進める",
           level: 1
@@ -775,7 +775,7 @@ const questions = {
       id: "sq_004",
       type: "influence",
       text: "意見を変えてもらう必要がある。あなたは？",
-      choices: [
+      answers: [
         {
           text: "相手の立場と価値観を理解してから、話す",
           level: 4
@@ -798,7 +798,7 @@ const questions = {
       id: "sq_005",
       type: "tradeoff",
       text: "本音と建前が異なる状況。どう対応するか？",
-      choices: [
+      answers: [
         {
           text: "建前を尊重し、本音は言わない",
           level: 1
@@ -821,7 +821,7 @@ const questions = {
       id: "sq_006",
       type: "situation",
       text: "チーム内に派閥がある。あなたは？",
-      choices: [
+      answers: [
         {
           text: "派閥を無視し、全員を公平に扱う",
           level: 1
@@ -844,7 +844,7 @@ const questions = {
       id: "sq_007",
       type: "priority",
       text: "個人の利益と組織の利益が対立している。あなたは？",
-      choices: [
+      answers: [
         {
           text: "組織の利益を優先する",
           level: 2
@@ -867,7 +867,7 @@ const questions = {
       id: "sq_008",
       type: "observation",
       text: "ある人が、グループから距離を置いている。あなたは？",
-      choices: [
+      answers: [
         {
           text: "その人に話しかけ、理由を聞く",
           level: 2
@@ -890,7 +890,7 @@ const questions = {
       id: "sq_009",
       type: "reverse_trap",
       text: "自分が言ったことが、予想と違う反応を呼んだ。あなたは？",
-      choices: [
+      answers: [
         {
           text: "自分の発言を正当化する",
           level: 1
@@ -913,7 +913,7 @@ const questions = {
       id: "sq_010",
       type: "judgment",
       text: "複数の利害関係者がいる。あなたは？",
-      choices: [
+      answers: [
         {
           text: "各利害関係者の立場と優先順位を理解する",
           level: 4
@@ -939,7 +939,7 @@ const questions = {
       id: "xq_001",
       type: "learning",
       text: "新しい分野に取り組む。あなたは？",
-      choices: [
+      answers: [
         {
           text: "基礎から体系的に学ぶ",
           level: 3
@@ -962,7 +962,7 @@ const questions = {
       id: "xq_002",
       type: "abstraction",
       text: "複数の経験から、共通パターンを見つけた。あなたは？",
-      choices: [
+      answers: [
         {
           text: "パターンを一般化し、他の場面に応用する",
           level: 4
@@ -985,7 +985,7 @@ const questions = {
       id: "xq_003",
       type: "reverse_trap",
       text: "失敗から学ぼうとしている。あなたは？",
-      choices: [
+      answers: [
         {
           text: "失敗の原因を徹底的に分析する",
           level: 3
@@ -1008,7 +1008,7 @@ const questions = {
       id: "xq_004",
       type: "application",
       text: "学んだ知識を、新しい場面に応用する。あなたは？",
-      choices: [
+      answers: [
         {
           text: "そのまま応用する",
           level: 1
@@ -1031,7 +1031,7 @@ const questions = {
       id: "xq_005",
       type: "tradeoff",
       text: "深い知識と広い知識のどちらを優先するか？",
-      choices: [
+      answers: [
         {
           text: "深い知識を優先する",
           level: 2
@@ -1054,7 +1054,7 @@ const questions = {
       id: "xq_006",
       type: "judgment",
       text: "自分の経験が、一般的な知識と異なる。あなたは？",
-      choices: [
+      answers: [
         {
           text: "一般的な知識を信頼し、経験を再検討する",
           level: 1
@@ -1077,7 +1077,7 @@ const questions = {
       id: "xq_007",
       type: "observation",
       text: "他人の成功を見て、学べることがないか考える。あなたは？",
-      choices: [
+      answers: [
         {
           text: "成功の理由を分析する",
           level: 3
@@ -1100,7 +1100,7 @@ const questions = {
       id: "xq_008",
       type: "reverse_trap",
       text: "知識が増えると、判断が難しくなることがある。あなたは？",
-      choices: [
+      answers: [
         {
           text: "知識を増やし続ける",
           level: 1
@@ -1123,7 +1123,7 @@ const questions = {
       id: "xq_009",
       type: "priority",
       text: "複数の学習機会がある。あなたは？",
-      choices: [
+      answers: [
         {
           text: "すべてを学ぼうとする",
           level: 1
@@ -1146,7 +1146,7 @@ const questions = {
       id: "xq_010",
       type: "situation",
       text: "学んだことが、期待と異なる結果をもたらした。あなたは？",
-      choices: [
+      answers: [
         {
           text: "学習の失敗と考え、別の方法を試す",
           level: 2
