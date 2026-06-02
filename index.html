@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5Q診断 - あなたの知能タイプを診断</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>5Q診断</h1>
+            <p class="subtitle">あなたの5つの知能タイプを診断</p>
+        </header>
+
+        <!-- Start Screen -->
+        <div id="startScreen" class="screen active">
+            <div class="start-content">
+                <h2>5つの知能タイプ診断へようこそ</h2>
+                <p>このテストでは、あなたの5つの知能タイプを診断します：</p>
+                <ul class="intelligence-list">
+                    <li><strong>IQ</strong>：思考知能（論理的思考、分析力）</li>
+                    <li><strong>EQ</strong>：感情知能（自己認識、共感力）</li>
+                    <li><strong>AQ</strong>：逆境知能（回復力、適応力）</li>
+                    <li><strong>SQ</strong>：社会知能（人間関係、影響力）</li>
+                    <li><strong>XQ</strong>：経験知能（学習力、成長志向）</li>
+                </ul>
+                <p class="test-info">各診断は約5分で完了します。正直に答えることが重要です。</p>
+                <button class="btn btn-primary" onclick="startDiagnostic('iq')">診断を開始</button>
+            </div>
+        </div>
+
+        <!-- Diagnostic Screen -->
+        <div id="diagnosticScreen" class="screen">
+            <div class="diagnostic-content">
+                <div class="progress-bar">
+                    <div id="progressFill" class="progress-fill"></div>
+                </div>
+                <p class="progress-text"><span id="currentQuestion">1</span> / <span id="totalQuestions">20</span></p>
+                
+                <div class="diagnostic-header">
+                    <h2 id="diagnosticTitle"></h2>
+                    <p id="diagnosticDescription"></p>
+                </div>
+
+                <div class="question-container">
+                    <p id="questionText" class="question-text"></p>
+                    <div id="answersContainer" class="answers-container"></div>
+                </div>
+
+                <div class="navigation-buttons">
+                    <button class="btn btn-secondary" id="prevBtn" onclick="previousQuestion()" style="display:none;">前へ</button>
+                    <button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()">次へ</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Screen -->
+        <div id="resultsScreen" class="screen">
+            <div class="results-content">
+                <h2>診断結果</h2>
+                
+                <div class="scores-grid">
+                    <div id="scoresContainer"></div>
+                </div>
+
+                <div class="integrated-type">
+                    <h3>あなたの統合タイプ</h3>
+                    <p id="integratedType" class="integrated-type-name"></p>
+                    <p id="integratedDescription" class="integrated-description"></p>
+                </div>
+
+                <div id="detailsContainer" class="details-container"></div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-primary" onclick="downloadResults()">結果をダウンロード</button>
+                    <button class="btn btn-secondary" onclick="retakeDiagnostic()">診断をやり直す</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detail Screen -->
+        <div id="detailScreen" class="screen">
+            <div class="detail-content">
+                <button class="btn btn-secondary" onclick="backToResults()">結果に戻る</button>
+                
+                <div id="detailContainer"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="questions.js"></script>
+    <script src="results.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
