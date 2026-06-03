@@ -18,12 +18,49 @@ let allScores = {
 };
 
 const diagnosticOrder = ['iq', 'eq', 'aq', 'sq', 'xq'];
+let shuffledQuestions = []; // All questions shuffled together
+let questionMapping = []; // Maps shuffled index to {diagnostic, questionIndex}
 
 // Start diagnostic
 function startDiagnostic(diagnostic) {
-    currentDiagnostic = diagnostic;
+    // Create shuffled question list from all 5 diagnostics
+    shuffledQuestions = [];
+    questionMapping = [];
+    
+    // Collect all questions with their diagnostic type
+    const allQuestions = [];
+    diagnosticOrder.forEach(diag => {
+        QUESTIONS[diag].forEach((question, index) => {
+            allQuestions.push({
+                diagnostic: diag,
+                questionIndex: index,
+                question: question
+            });
+        });
+    });
+    
+    // Shuffle using Fisher-Yates algorithm
+    for (let i = allQuestions.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [allQuestions[i], allQuestions[j]] = [allQuestions[j], allQuestions[i]];
+    }
+    
+    // Store shuffled questions and mapping
+    allQuestions.forEach(item => {
+        shuffledQuestions.push(item.question);
+        questionMapping.push({
+            diagnostic: item.diagnostic,
+            questionIndex: item.questionIndex
+        });
+    });
+    
     currentQuestionIndex = 0;
-    allAnswers[diagnostic] = [];
+    currentDiagnostic = diagnostic;
+    
+    // Initialize all answer arrays
+    diagnosticOrder.forEach(d => {
+        allAnswers[d] = new Array(QUESTIONS[d].length).fill(null);
+    });
     
     showScreen('diagnosticScreen');
     loadQuestion();
@@ -31,18 +68,18 @@ function startDiagnostic(diagnostic) {
 
 // Load and display current question
 function loadQuestion() {
-    const questions = QUESTIONS[currentDiagnostic];
-    const question = questions[currentQuestionIndex];
+    const question = shuffledQuestions[currentQuestionIndex];
+    const mapping = questionMapping[currentQuestionIndex];
     
-    // Update header
-    document.getElementById('diagnosticTitle').textContent = RESULTS_DATA[currentDiagnostic].name;
-    document.getElementById('diagnosticDescription').textContent = RESULTS_DATA[currentDiagnostic].description;
+    // Update header - don't show which diagnostic this is
+    document.getElementById('diagnosticTitle').textContent = '5Q診断';
+    document.getElementById('diagnosticDescription').textContent = '質問に答えてください';
     
-    // Update progress
+    // Update progress - show total of all 50 questions
     document.getElementById('currentQuestion').textContent = currentQuestionIndex + 1;
-    document.getElementById('totalQuestions').textContent = questions.length;
+    document.getElementById('totalQuestions').textContent = shuffledQuestions.length;
     
-    const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
+    const progress = ((currentQuestionIndex + 1) / shuffledQuestions.length) * 100;
     document.getElementById('progressFill').style.width = progress + '%';
     
     // Display question
@@ -72,26 +109,27 @@ function loadQuestion() {
         prevBtn.style.display = 'block';
     }
     
-    if (currentQuestionIndex === questions.length - 1) {
+    if (currentQuestionIndex === shuffledQuestions.length - 1) {
         nextBtn.textContent = '完了';
     } else {
         nextBtn.textContent = '次へ';
     }
     
     // Restore previous answer if exists
-    if (allAnswers[currentDiagnostic][currentQuestionIndex]) {
-        const previousAnswer = allAnswers[currentDiagnostic][currentQuestionIndex];
+    const mapping = questionMapping[currentQuestionIndex];
+    if (allAnswers[mapping.diagnostic][mapping.questionIndex]) {
+        const previousAnswer = allAnswers[mapping.diagnostic][mapping.questionIndex];
         document.getElementById(`answer${previousAnswer.answerIndex}`).checked = true;
     }
 }
 
 // Select answer
 function selectAnswer(answerIndex) {
-    const questions = QUESTIONS[currentDiagnostic];
-    const question = questions[currentQuestionIndex];
+    const question = shuffledQuestions[currentQuestionIndex];
+    const mapping = questionMapping[currentQuestionIndex];
     const answer = question.answers[answerIndex];
     
-    allAnswers[currentDiagnostic][currentQuestionIndex] = {
+    allAnswers[mapping.diagnostic][mapping.questionIndex] = {
         answerIndex: answerIndex,
         level: answer.level,
         category: answer.category
@@ -100,15 +138,14 @@ function selectAnswer(answerIndex) {
 
 // Next question
 function nextQuestion() {
-    if (!allAnswers[currentDiagnostic][currentQuestionIndex]) {
+    const mapping = questionMapping[currentQuestionIndex];
+    if (!allAnswers[mapping.diagnostic][mapping.questionIndex]) {
         alert('答えを選択してください');
         return;
     }
     
-    const questions = QUESTIONS[currentDiagnostic];
-    
-    if (currentQuestionIndex === questions.length - 1) {
-        // Diagnostic complete
+    if (currentQuestionIndex === shuffledQuestions.length - 1) {
+        // All questions complete
         completeDiagnostic();
     } else {
         currentQuestionIndex++;
@@ -124,23 +161,16 @@ function previousQuestion() {
     }
 }
 
-// Complete current diagnostic
+// Complete all diagnostics
 function completeDiagnostic() {
-    // Calculate score
-    const score = calculateScore(allAnswers[currentDiagnostic]);
-    allScores[currentDiagnostic] = score;
+    // Calculate scores for all diagnostics
+    diagnosticOrder.forEach(diagnostic => {
+        const score = calculateScore(allAnswers[diagnostic]);
+        allScores[diagnostic] = score;
+    });
     
-    // Move to next diagnostic or show results
-    const currentIndex = diagnosticOrder.indexOf(currentDiagnostic);
-    
-    if (currentIndex < diagnosticOrder.length - 1) {
-        // Next diagnostic
-        const nextDiagnostic = diagnosticOrder[currentIndex + 1];
-        startDiagnostic(nextDiagnostic);
-    } else {
-        // All diagnostics complete
-        showResults();
-    }
+    // Show results
+    showResults();
 }
 
 // Show results
