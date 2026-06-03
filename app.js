@@ -427,3 +427,160 @@ function retakeDiagnostic() {
 document.addEventListener('DOMContentLoaded', () => {
     showScreen('startScreen');
 });
+
+
+// Intelligence Detail Functions
+const intelligenceDetails = {
+    iq: {
+        name: 'IQ（思考知能）',
+        description: '論理的思考、分析力、問題解決能力を測定します',
+        details: [
+            '論理的思考：複雑な情報を体系的に整理し、因果関係を理解する能力',
+            'パターン認識：データから規則性や傾向を見つけ出す能力',
+            '言語分析：言葉の意味を正確に理解し、表現する能力',
+            '推論能力：既知の情報から新しい結論を導き出す能力',
+            '総合処理：複数の情報を統合して判断する能力'
+        ],
+        benefits: [
+            '戦略的な意思決定が得意',
+            '複雑な問題を体系的に解決できる',
+            'データ分析や研究に向いている',
+            '学習効率が高い'
+        ],
+        careers: ['データサイエンティスト', '戦略コンサルタント', '研究者', 'エンジニア'],
+        examples: 'アルベルト・アインシュタイン、スティーブ・ジョブズ'
+    },
+    eq: {
+        name: 'EQ（感情知能）',
+        description: '自己認識、自己制御、共感力、対人スキルを測定します',
+        details: [
+            '自己認識：自分の感情や強み・弱みを理解する能力',
+            '自己制御：感情をコントロールし、冷静に判断する能力',
+            '共感力：他者の感情を理解し、寄り添う能力',
+            '対人スキル：効果的にコミュニケーションを取る能力',
+            '動機づけ：自分と他者をモチベートする能力'
+        ],
+        benefits: [
+            'リーダーシップが優れている',
+            'チームワークが得意',
+            'ストレス管理ができる',
+            '人間関係が良好'
+        ],
+        careers: ['マネージャー', 'カウンセラー', '営業', 'HR'],
+        examples: 'オプラ・ウィンフリー、ナルシソ・ゴルバチョフ'
+    },
+    aq: {
+        name: 'AQ（逆境知能）',
+        description: '困難への対応力、回復力、適応力を測定します',
+        details: [
+            '回復力：失敗や挫折から立ち直る能力',
+            '粘り強さ：困難に直面しても諦めない能力',
+            '分析力：失敗の原因を冷静に分析する能力',
+            '適応力：変化する環境に柔軟に対応する能力',
+            '責任感：自分の行動に責任を持つ能力'
+        ],
+        benefits: [
+            '変化への対応が早い',
+            '困難な状況でも冷静に対応できる',
+            'イノベーションに強い',
+            'レジリエンスが高い'
+        ],
+        careers: ['起業家', 'プロジェクトマネージャー', '営業', 'コーチ'],
+        examples: 'ウォルト・ディズニー、オプラ・ウィンフリー'
+    },
+    sq: {
+        name: 'SQ（社会知能）',
+        description: '人間関係、社会的影響力、ネットワーク構築能力を測定します',
+        details: [
+            '雰囲気読み：場の空気や他者の心理を察知する能力',
+            '影響力：他者を動かし、説得する能力',
+            '役割認識：社会的な立場と責任を理解する能力',
+            'ネットワーク構築：人間関係を広げ、維持する能力',
+            '協調性：集団の中で効果的に機能する能力'
+        ],
+        benefits: [
+            'ネットワークが広い',
+            'コミュニティの中心的存在になれる',
+            '政治的スキルが高い',
+            '人脈を活かした成功ができる'
+        ],
+        careers: ['政治家', '外交官', 'PR', 'イベントプロデューサー'],
+        examples: 'ジョン・F・ケネディ、オプラ・ウィンフリー'
+    },
+    xq: {
+        name: 'XQ（経験知能）',
+        description: '学習力、成長志向、経験からの学習能力を測定します',
+        details: [
+            '学習力：新しい知識やスキルを習得する能力',
+            '抽象化：経験から本質的な学びを抽出する能力',
+            '応用力：学んだことを新しい状況に応用する能力',
+            '再現性：成功パターンを繰り返す能力',
+            '成長志向：常に改善と進化を目指す姿勢'
+        ],
+        benefits: [
+            'キャリアの転換が容易',
+            '多様な分野で活躍できる',
+            '生涯学習が得意',
+            '時代の変化に対応できる'
+        ],
+        careers: ['コンサルタント', '教育者', 'トレーナー', 'メンター'],
+        examples: 'レオナルド・ダ・ヴィンチ、ベンジャミン・フランクリン'
+    }
+};
+
+function showIntelligenceDetail(type) {
+    const detail = intelligenceDetails[type];
+    if (!detail) return;
+    
+    let html = `
+        <h2>${detail.name}</h2>
+        <p><strong>${detail.description}</strong></p>
+        
+        <h3>詳細な説明</h3>
+        <ul>
+    `;
+    
+    detail.details.forEach(item => {
+        html += `<li>${item}</li>`;
+    });
+    
+    html += `
+        </ul>
+        
+        <h3>この知能が高い人の特徴</h3>
+        <ul>
+    `;
+    
+    detail.benefits.forEach(item => {
+        html += `<li>${item}</li>`;
+    });
+    
+    html += `
+        </ul>
+        
+        <h3>適した職業</h3>
+        <p>${detail.careers.join('、')}</p>
+        
+        <h3>参考人物</h3>
+        <p>${detail.examples}</p>
+    `;
+    
+    document.getElementById('intelligenceDetailContent').innerHTML = html;
+    document.getElementById('intelligenceDetailModal').classList.add('active');
+}
+
+function closeIntelligenceDetail() {
+    document.getElementById('intelligenceDetailModal').classList.remove('active');
+}
+
+// Close modal when clicking outside
+document.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById('intelligenceDetailModal');
+    if (modal) {
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeIntelligenceDetail();
+            }
+        });
+    }
+});

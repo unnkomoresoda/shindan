@@ -19,15 +19,54 @@
             <div class="start-content">
                 <h2>5つの知能タイプ診断へようこそ</h2>
                 <p>このテストでは、あなたの5つの知能タイプを診断します：</p>
-                <ul class="intelligence-list">
-                    <li><strong>IQ</strong>：思考知能（論理的思考、分析力）</li>
-                    <li><strong>EQ</strong>：感情知能（自己認識、共感力）</li>
-                    <li><strong>AQ</strong>：逆境知能（回復力、適応力）</li>
-                    <li><strong>SQ</strong>：社会知能（人間関係、影響力）</li>
-                    <li><strong>XQ</strong>：経験知能（学習力、成長志向）</li>
-                </ul>
+                
+                <div class="intro-section">
+                    <h3>この診断で何がわかるのか</h3>
+                    <p>従来のIQテストは「論理的思考力」のみを測定していますが、現代社会では複数の知能タイプが必要です。この診断では、あなたの5つの知能タイプを総合的に評価し、強みと改善点を明らかにします。</p>
+                    <ul>
+                        <li><strong>自己理解</strong>：自分の思考パターンと行動傾向を理解</li>
+                        <li><strong>対人関係</strong>：他者との関係構築に必要な能力を把握</li>
+                        <li><strong>キャリア開発</strong>：適職や成長方向を見つける手がかり</li>
+                        <li><strong>問題解決</strong>：状況に応じた最適なアプローチを発見</li>
+                    </ul>
+                </div>
+                
+                <div class="intelligence-types-section">
+                    <h3>5つの知能タイプについて</h3>
+                    <ul class="intelligence-list">
+                        <li class="intelligence-item" onclick="showIntelligenceDetail('iq')">
+                            <strong>IQ</strong>：思考知能（論理的思考、分析力）
+                            <span class="expand-icon">▼</span>
+                        </li>
+                        <li class="intelligence-item" onclick="showIntelligenceDetail('eq')">
+                            <strong>EQ</strong>：感情知能（自己認識、共感力）
+                            <span class="expand-icon">▼</span>
+                        </li>
+                        <li class="intelligence-item" onclick="showIntelligenceDetail('aq')">
+                            <strong>AQ</strong>：逆境知能（回復力、適応力）
+                            <span class="expand-icon">▼</span>
+                        </li>
+                        <li class="intelligence-item" onclick="showIntelligenceDetail('sq')">
+                            <strong>SQ</strong>：社会知能（人間関係、影響力）
+                            <span class="expand-icon">▼</span>
+                        </li>
+                        <li class="intelligence-item" onclick="showIntelligenceDetail('xq')">
+                            <strong>XQ</strong>：経験知能（学習力、成長志向）
+                            <span class="expand-icon">▼</span>
+                        </li>
+                    </ul>
+                </div>
+                
                 <p class="test-info">各診断は約5分で完了します。正直に答えることが重要です。</p>
                 <button class="btn btn-primary" onclick="startDiagnostic('iq')">診断を開始</button>
+            </div>
+        </div>
+        
+        <!-- Intelligence Detail Modal -->
+        <div id="intelligenceDetailModal" class="modal">
+            <div class="modal-content">
+                <button class="modal-close" onclick="closeIntelligenceDetail()">✕</button>
+                <div id="intelligenceDetailContent"></div>
             </div>
         </div>
 
