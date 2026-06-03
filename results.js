@@ -437,3 +437,143 @@ function getIntegratedType(scores) {
   
   return '実用バランス型';
 }
+
+
+// Integrated Explanations
+const INTEGRATED_EXPLANATIONS = {
+  transformationLeader: {
+    title: '総合解説：変革リーダー型',
+    condition: 'aq >= 75 && sq >= 75 && xq >= 75',
+    explanation: 'あなたの5Qバランスを見ると、AQ・SQ・XQが強く出ています。これは、困難に耐えるだけでなく、状況や組織の構造を読み、経験から学んだことを使って仕組みごと変えていくタイプです。単純な個人能力よりも、構造を設計して成果を再現する力が中心になります。',
+    challenge: '一方で、自分が改善できることを他人にも求めすぎると、周囲がついてこられない場合があります。あなたにとって自然な改善速度が、周囲にとっては速すぎる場合があります。',
+    recommendation: '今後は、正しい設計だけでなく、相手が動ける設計に変換することが重要です。EQを伸ばすことで、個人の成果が組織の成果に変わりやすくなります。',
+    strength: '経験を構造化し、人や組織を読み、逆境でも仕組みを変えて成果を出す',
+    bottleneck: '人を構造変数として扱いすぎること、感情的配慮の不足',
+    growthFocus: 'EQ（感情知能）'
+  },
+  strategyExecution: {
+    title: '総合解説：戦略実行型',
+    condition: 'iq >= 75 && aq >= 75 && xq >= 75',
+    explanation: 'あなたの5Qバランスを見ると、IQ・AQ・XQが強く出ています。これは、考える、試す、改善するの回転が速いタイプです。論理的に戦略を立て、失敗から学び、経験を次に活かす力が中心になります。',
+    challenge: '一方で、感情面や関係調整を軽く見やすい傾向があります。自分の改善速度が速いため、他人の感情処理や納得形成を待つことが難しいかもしれません。',
+    recommendation: 'EQやSQを伸ばすことで、実行を協働に変えることができます。個人の成果を組織の成果に変えるには、相手の感情や関係性への配慮が重要です。',
+    strength: '考える、試す、改善するの回転が速く、戦略的に実行できる',
+    bottleneck: '感情面や関係調整を軽く見やすいこと、人間関係の構築が後回しになる',
+    growthFocus: 'EQ（感情知能）'
+  },
+  coordinationSupport: {
+    title: '総合解説：調整支援型',
+    condition: 'eq >= 75 && sq >= 75',
+    explanation: 'あなたの5Qバランスを見ると、EQ・SQが強く出ています。これは、個人の感情と集団の関係性の両方を扱えるタイプです。人の気持ちを理解し、組織内の空気を読み、関係を調整する力が中心になります。',
+    challenge: '一方で、自分の意思決定が遅れることがあります。他人の感情や関係性に配慮しすぎると、判断が曖昧になったり、決断が後回しになったりする可能性があります。',
+    recommendation: 'IQやAQを伸ばすことで、理解を判断に変えることができます。感情や関係を理解した上で、明確な判断を下す力を強化することが重要です。',
+    strength: '個人の感情と集団の関係性の両方を理解し、調整できる',
+    bottleneck: '自分の意思決定が遅れること、判断が曖昧になりやすい',
+    growthFocus: 'IQ（思考知能）'
+  },
+  organizationDesign: {
+    title: '総合解説：組織設計型',
+    condition: 'sq >= 75',
+    explanation: 'あなたの5Qバランスを見ると、SQが強く出ています。これは、人間関係・組織構造・空気を読んで成果を出すタイプです。集団内の力学を理解し、人を動かし、組織を設計する力が中心になります。',
+    challenge: '一方で、読みすぎることで政治的になりすぎたり、本来の目的を見失ったりする可能性があります。また、複雑な構造設計や数値分析では補助ツールが必要になるかもしれません。',
+    recommendation: 'IQやXQを伸ばすことで、読みを設計に変えることができます。組織の空気を読むだけでなく、論理的に構造を設計し、経験から学ぶ力を強化することが重要です。',
+    strength: '人間関係・組織構造・空気を読んで成果を出す',
+    bottleneck: '読みすぎ・政治的になりすぎること、複雑な分析が苦手',
+    growthFocus: 'IQ（思考知能）'
+  },
+  learningGrowth: {
+    title: '総合解説：学習成長型',
+    condition: 'xq >= 75',
+    explanation: 'あなたの5Qバランスを見ると、XQが強く出ています。これは、経験学習・抽象化・転用で成果を出すタイプです。失敗や逆境を経験値に変え、次の行動に再利用する力が中心になります。',
+    challenge: '一方で、飽きやすさや他人への速度要求が課題になることがあります。自分が学べるペースが速いため、他人にも同じ速度の改善を求めやすい傾向があります。',
+    recommendation: 'EQやSQを伸ばすことで、学びを共有に変えることができます。自分が学んだことを他人にも使える形に翻訳し、チーム全体の成長につなげることが重要です。',
+    strength: '失敗や逆境を経験値に変え、次の行動に再利用する力が強い',
+    bottleneck: '飽きやすさや他人への速度要求、個人の学習に偏る',
+    growthFocus: 'EQ（感情知能）'
+  },
+  adversityBreakthrough: {
+    title: '総合解説：逆境突破型',
+    condition: 'aq >= 75',
+    explanation: 'あなたの5Qバランスを見ると、AQが強く出ています。これは、逆境突破で成果を出すタイプです。困難に耐え、失敗から立ち直り、粘り強く目標を達成する力が中心になります。',
+    challenge: '一方で、無理を続けやすい傾向があります。自分が耐えられるため、他人にも同じレベルの負荷を求めやすくなる可能性があります。',
+    recommendation: 'EQやSQを伸ばすことで、個人の突破を組織の突破に変えることができます。自分の回復力を他人にも使える形に翻訳し、チーム全体の回復力を高めることが重要です。',
+    strength: '逆境に強く、困難を突破して成果を出す',
+    bottleneck: '無理を続けやすいこと、他人への負荷要求が高い',
+    growthFocus: 'EQ（感情知能）'
+  },
+  humanUnderstanding: {
+    title: '総合解説：人間理解型',
+    condition: 'eq >= 75',
+    explanation: 'あなたの5Qバランスを見ると、EQが強く出ています。これは、感情理解・関係形成で成果を出すタイプです。人の気持ちに寄り添い、信頼関係を築き、安心感を与える力が中心になります。',
+    challenge: '一方で、周囲に影響されすぎる傾向があります。他人の感情に寄り添いすぎると、自分の判断軸が曖昧になったり、決断が遅れたりする可能性があります。',
+    recommendation: 'IQやAQを伸ばすことで、感情を戦略に変えることができます。人間理解を基盤としながら、論理的な判断と困難への対応力を強化することが重要です。',
+    strength: '人の感情を理解し、信頼関係を築き、安心感を与える',
+    bottleneck: '周囲に影響されすぎること、自分の判断軸が曖昧になる',
+    growthFocus: 'IQ（思考知能）'
+  },
+  thinkingSpecialization: {
+    title: '総合解説：思考特化型',
+    condition: 'iq >= 75',
+    explanation: 'あなたの5Qバランスを見ると、IQが強く出ています。これは、思考力・論理力で成果を出すタイプです。複雑な問題を分析し、論理的に解決し、新しい視点を提供する力が中心になります。',
+    challenge: '一方で、考えすぎ・説明過多・行動遅れが課題になることがあります。完璧さを求めすぎると、実行段階での柔軟性が低くなる可能性があります。',
+    recommendation: 'AQやXQを伸ばすことで、思考を行動に変えることができます。論理的な思考を基盤としながら、試行錯誤と経験学習を強化することが重要です。',
+    strength: '思考力・論理力で複雑な問題を分析し解決する',
+    bottleneck: '考えすぎ・説明過多・行動遅れ、実行段階での柔軟性が低い',
+    growthFocus: 'AQ（逆境知能）'
+  },
+  balancedPractical: {
+    title: '総合解説：実用バランス型',
+    condition: 'balanced',
+    explanation: 'あなたの5Qバランスを見ると、全体的にバランスの取れたタイプです。大きな弱点は少なく、環境に応じて能力を使い分けるタイプです。状況に応じて柔軟に対応できる適応力が中心になります。',
+    challenge: '一方で、突出した武器が見えにくいことが課題になることがあります。どの能力も平均的なため、特定の領域での専門性を追求しにくい可能性があります。',
+    recommendation: '今後は、1つの能力を意識的に伸ばして、専門性を作ることが重要です。自分の得意な環境を見つけ、そこで1つの能力から伸ばしていくことで、独自の強みが生まれます。',
+    strength: '全体的にバランスが取れており、環境に応じて柔軟に対応できる',
+    bottleneck: '突出した武器が見えにくいこと、専門性の追求が難しい',
+    growthFocus: '最も低いスコアの能力'
+  },
+  developingPotential: {
+    title: '総合解説：成長可能性型',
+    condition: 'lowScores',
+    explanation: 'あなたの5Qバランスを見ると、現時点ではすべての能力が発展途上の状態です。これは、これから伸ばしやすい状態だということです。特定の能力で押し切るのではなく、環境選びと小さな習慣化を通じて、着実に伸ばしていくタイプです。',
+    challenge: '一方で、現在の環境が自分に合っていない可能性があります。自分の強みが活かせる環境に移ることで、能力の伸びが加速することがあります。',
+    recommendation: '今後は、自分の得意な環境を見つけることが重要です。そこで小さな習慣を積み重ねることで、1つの能力から伸ばしていくことができます。焦らず、着実に成長させることが大切です。',
+    strength: 'これから伸ばしやすい状態、環境選びで大きく変わる可能性がある',
+    bottleneck: '現在の環境が自分に合っていない可能性、複数能力の同時発展が難しい',
+    growthFocus: '最も得意な環境を見つけ、そこから1つの能力を伸ばす'
+  }
+};
+
+// Get integrated explanation
+function getIntegratedExplanation(scores) {
+  const { iq, eq, aq, sq, xq } = scores;
+  
+  if (aq >= 75 && sq >= 75 && xq >= 75) {
+    return INTEGRATED_EXPLANATIONS.transformationLeader;
+  }
+  if (iq >= 75 && aq >= 75 && xq >= 75) {
+    return INTEGRATED_EXPLANATIONS.strategyExecution;
+  }
+  if (eq >= 75 && sq >= 75) {
+    return INTEGRATED_EXPLANATIONS.coordinationSupport;
+  }
+  if (sq >= 75) {
+    return INTEGRATED_EXPLANATIONS.organizationDesign;
+  }
+  if (xq >= 75) {
+    return INTEGRATED_EXPLANATIONS.learningGrowth;
+  }
+  if (aq >= 75) {
+    return INTEGRATED_EXPLANATIONS.adversityBreakthrough;
+  }
+  if (eq >= 75) {
+    return INTEGRATED_EXPLANATIONS.humanUnderstanding;
+  }
+  if (iq >= 75) {
+    return INTEGRATED_EXPLANATIONS.thinkingSpecialization;
+  }
+  if (Math.max(iq, eq, aq, sq, xq) >= 60 && Math.min(iq, eq, aq, sq, xq) >= 50) {
+    return INTEGRATED_EXPLANATIONS.balancedPractical;
+  }
+  
+  return INTEGRATED_EXPLANATIONS.developingPotential;
+}
