@@ -116,7 +116,6 @@ function loadQuestion() {
     }
     
     // Restore previous answer if exists
-    const mapping = questionMapping[currentQuestionIndex];
     if (allAnswers[mapping.diagnostic][mapping.questionIndex]) {
         const previousAnswer = allAnswers[mapping.diagnostic][mapping.questionIndex];
         document.getElementById(`answer${previousAnswer.answerIndex}`).checked = true;
