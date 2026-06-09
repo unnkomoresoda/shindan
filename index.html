@@ -3,22 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>5Q診断 - あなたの知能タイプを診断</title>
+    <title>5Q+BQ診断 - あなたの知能タイプと認知バイアス耐性を診断</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
         <!-- Header -->
         <header class="header">
-            <h1>5Q診断</h1>
-            <p class="subtitle">あなたの5つの知能タイプを診断</p>
+            <h1>5Q+BQ診断</h1>
+            <p class="subtitle">あなたの5つの知能タイプと認知バイアス耐性を診断</p>
         </header>
 
         <!-- Start Screen -->
         <div id="startScreen" class="screen active">
             <div class="start-content">
-                <h2>5つの知能タイプ診断へようこそ</h2>
-                <p>このテストでは、あなたの5つの知能タイプを診断します：</p>
+                <h2>5つの知能タイプ + 認知バイアス耐性診断へようこそ</h2>
+                <p>このテストでは、あなたの5つの知能タイプと認知バイアス耐性（BQ）を診断します：</p>
                 
                 <div class="intro-section">
                     <h3>この診断で何がわかるのか</h3>
@@ -32,7 +32,7 @@
                 </div>
                 
                 <div class="intelligence-types-section">
-                    <h3>5つの知能タイプについて</h3>
+                    <h3>5つの知能タイプと認知バイアス耐性について</h3>
                     <ul class="intelligence-list">
                         <li class="intelligence-item" onclick="showIntelligenceDetail('iq')">
                             <strong>IQ</strong>：思考知能（論理的思考、分析力）
@@ -54,19 +54,24 @@
                             <strong>XQ</strong>：経験知能（学習力、成長志向）
                             <span class="expand-icon">▼</span>
                         </li>
+                        <li class="intelligence-item" onclick="showIntelligenceDetail('bq')">
+                            <strong>BQ</strong>：認知バイアス耐性（客観性、判断信頼性）
+                            <span class="expand-icon">▼</span>
+                        </li>
                     </ul>
                 </div>
                 
-                <p class="test-info">診断は20分程度（50問）です。直感的に答えてください。</p>
+                <p class="test-info">診断は20分程度（50問）です。直感的に答えてください。認知バイアスを検出するため、すべての選択肢に合理性があります。</p>
                 <button class="btn btn-primary" onclick="startDiagnostic('iq')">診断を開始</button>
             </div>
         </div>
         
         <!-- Intelligence Detail Modal -->
-        <div id="intelligenceDetailModal" class="modal">
+        <div id="intelligenceModal" class="modal">
             <div class="modal-content">
-                <button class="modal-close" onclick="closeIntelligenceDetail()">✕</button>
-                <div id="intelligenceDetailContent"></div>
+                <button class="modal-close" onclick="closeModal()">✕</button>
+                <h3 id="modalTitle"></h3>
+                <p id="modalDescription"></p>
             </div>
         </div>
 
