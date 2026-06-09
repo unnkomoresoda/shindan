@@ -496,13 +496,131 @@ function showScreen(screenName) {
 // Download results
 function downloadResults() {
     let csv = '5Q+BQ診断結果\n';
-    csv += `実施日時,${new Date().toLocaleString('ja-JP')}\n\n`;
-    csv += 'メトリクス,スコア\n';
+    csv += `実施日時,${new Date().toLocaleString('ja-JP')}\n`;
+    csv += `\n`;
+    
+    // Scores section
+    csv += '=== スコア ===\n';
+    csv += 'メトリクス,スコア,ランク\n';
     
     diagnosticOrder.forEach(diagnostic => {
-        csv += `${diagnostic.toUpperCase()},${allScores[diagnostic]}\n`;
+        const score = allScores[diagnostic];
+        const diagnosticData = RESULTS_DATA[diagnostic];
+        const rankData = diagnosticData.ranks.find(r => score >= r.min && score <= r.max);
+        csv += `${diagnostic.toUpperCase()},${score},${rankData.rank}\n`;
     });
-    csv += `BQ,${allScores.bq}\n`;
+    
+    const bqScore = allScores.bq;
+    const bqData = RESULTS_DATA.bq;
+    const bqRankData = bqData.ranks.find(r => bqScore >= r.min && bqScore <= r.max);
+    csv += `BQ,${bqScore},${bqRankData.rank}\n`;
+    
+    csv += `\n`;
+    
+    // Integrated Type
+    csv += '=== 統合タイプ ===\n';
+    const integratedType = getIntegratedType(allScores);
+    csv += `タイプ,${integratedType}\n`;
+    csv += `\n`;
+    
+    // Integrated Explanation
+    csv += '=== 総合考察 ===\n';
+    const explanation = getIntegratedExplanation(allScores);
+    csv += `タイトル,${explanation.title}\n`;
+    csv += `\n考察\n${explanation.explanation}\n`;
+    csv += `\n課題\n${explanation.challenge}\n`;
+    csv += `\n推奨\n${explanation.recommendation}\n`;
+    csv += `\n強み\n${explanation.strength}\n`;
+    if (explanation.bqNote) {
+        csv += `\nBQ注記\n${explanation.bqNote}\n`;
+    }
+    csv += `\n`;
+    
+    // Detailed Analysis for each diagnostic
+    csv += '=== 詳細分析 ===\n';
+    
+    diagnosticOrder.forEach(diagnostic => {
+        const score = allScores[diagnostic];
+        const diagnosticData = RESULTS_DATA[diagnostic];
+        const rankData = diagnosticData.ranks.find(r => score >= r.min && score <= r.max);
+        
+        let type = rankData.type;
+        if (!type) {
+            const answers = allAnswers[diagnostic];
+            const categoryCounts = {};
+            answers.forEach(answer => {
+                if (answer && answer.category !== 'bias') {
+                    categoryCounts[answer.category] = (categoryCounts[answer.category] || 0) + 1;
+                }
+            });
+            const topCategory = Object.keys(categoryCounts).length > 0 
+                ? Object.keys(categoryCounts).reduce((a, b) => 
+                    categoryCounts[a] > categoryCounts[b] ? a : b
+                )
+                : 'general';
+            
+            const typeMap = {
+                iq: { judgment: '論理構築型', pattern: 'パターン発見型', general: '総合処理型' },
+                eq: { empathy: '共感型', adjustment: '調整型', general: '調整型' },
+                aq: { adaptability: '適応型', learning: '学習型', general: '適応型' },
+                sq: { harmony: '雰囲気読み型', communication: 'コミュニケーション型', general: '雰囲気読み型' },
+                xq: { growth: '成長型', reflection: '反省型', general: '成長型' }
+            };
+            
+            type = typeMap[diagnostic][topCategory] || '総合型';
+        }
+        
+        const typeDetails = getTypeDetails(diagnostic, type);
+        
+        csv += `\n--- ${diagnosticData.name} ---\n`;
+        csv += `スコア,${score}\n`;
+        csv += `ランク,${rankData.rank}\n`;
+        csv += `タイプ,${type}\n`;
+        csv += `\n強み\n`;
+        typeDetails.strengths.forEach(s => {
+            csv += `・${s}\n`;
+        });
+        csv += `\n課題\n`;
+        typeDetails.weaknesses.forEach(w => {
+            csv += `・${w}\n`;
+        });
+        csv += `\n改善方法\n`;
+        typeDetails.improvements.forEach(i => {
+            csv += `・${i}\n`;
+        });
+        csv += `\n最適環境\n${typeDetails.environment}\n`;
+        csv += `\n参考人物\n`;
+        typeDetails.referencePersons.forEach(p => {
+            csv += `・${p.name}：${p.reason}\n`;
+        });
+    });
+    
+    // BQ Detailed Analysis
+    csv += `\n--- ${RESULTS_DATA.bq.name} ---\n`;
+    csv += `スコア,${bqScore}\n`;
+    csv += `ランク,${bqRankData.rank}\n`;
+    csv += `タイプ,${bqRankData.type}\n`;
+    
+    const bqTypeDetails = getTypeDetails('bq', bqRankData.type);
+    if (bqTypeDetails) {
+        csv += `\n強み\n`;
+        bqTypeDetails.strengths.forEach(s => {
+            csv += `・${s}\n`;
+        });
+        csv += `\n課題\n`;
+        bqTypeDetails.weaknesses.forEach(w => {
+            csv += `・${w}\n`;
+        });
+        csv += `\n改善方法\n`;
+        bqTypeDetails.improvements.forEach(i => {
+            csv += `・${i}\n`;
+        });
+        csv += `\n最適環境\n${bqTypeDetails.environment}\n`;
+        csv += `\n参考人物\n`;
+        bqTypeDetails.referencePersons.forEach(p => {
+            csv += `・${p.name}：${p.reason}\n`;
+        });
+    }
     
     const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
     const link = document.createElement('a');
